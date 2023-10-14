@@ -19,6 +19,65 @@ const verificarBodyOrdem = async(req, res, next) => {
     next();
 }
 
+const verificarMaterial = async(req, res, next) => {
+    const { material, quantidade } = req.body;
+    
+    try {
+        const materiaisValidos = [];
+
+        for(let i = 0; i < material.length; i ++) {
+            const { rows } = await pool.query('select nome from materiais where nome = $1', [material[i]]);
+            if(rows.length === 0) {
+                continue;
+            }
+            materiaisValidos.push(rows[0].nome);
+        }
+
+        if(materiaisValidos.length !== material.length) {
+            const produtosIndisponiveis = material.filter(material => !materiaisValidos.includes(material));
+            
+            return res.status(400).json({
+                mensagem: "esses materiais não estão disponíveis no estoque",
+                produtosIndisponiveis
+            });
+        }
+
+        else {
+            for(let i = 0; i < materiaisValidos.length; i++) {
+
+                const { rows } = await pool.query(
+                    `
+                    select quantidade from materiais where nome = $1
+                    `, [materiaisValidos[i]]
+                );
+                
+                // checar se existem materiais suficientes
+                if((rows[0].quantidade - quantidade) < 0) {
+                    return res.json("algo errado");
+                }
+
+                // diminuir quantidade de itens baseado na ordem
+                else {
+                    await pool.query(
+                        `
+                        UPDATE materiais
+                        SET quantidade = quantidade - $1 
+                        WHERE nome = $2;
+                        `, [quantidade, materiaisValidos[i]]
+                    );
+                }
+            };
+        };
+
+        next();
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json(error)
+    }
+    
+}
+
 module.exports = {
-    verificarBodyOrdem
+    verificarBodyOrdem,
+    verificarMaterial
 }

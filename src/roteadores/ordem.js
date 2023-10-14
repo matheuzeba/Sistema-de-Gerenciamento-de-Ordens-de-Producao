@@ -7,10 +7,11 @@ const {
 } = require('../controladores/ordem');
 
 const {
-    verificarBodyOrdem
+    verificarBodyOrdem,
+    verificarMaterial
 } = require('../intermediarios/ordem')
 
-rotas.use(verificarBodyOrdem)
+rotas.use(verificarBodyOrdem, verificarMaterial)
 
 rotas.post('/ordem', ordemDeFabricacao)
 
