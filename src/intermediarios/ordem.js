@@ -36,7 +36,7 @@ const verificarMaterial = async(req, res, next) => {
         if(materiaisValidos.length !== material.length) {
             const produtosIndisponiveis = material.filter(material => !materiaisValidos.includes(material));
             
-            return res.status(400).json({
+            return res.status(404).json({
                 mensagem: "esses materiais não estão disponíveis no estoque",
                 produtosIndisponiveis
             });
@@ -53,7 +53,7 @@ const verificarMaterial = async(req, res, next) => {
                 
                 // checar se existem materiais suficientes
                 if((rows[0].quantidade - quantidade) < 0) {
-                    return res.json("algo errado");
+                    return res.status(400).json({mensagem: "Quantidade de materiais insuficientes"});
                 }
 
                 // diminuir quantidade de itens baseado na ordem
@@ -72,7 +72,7 @@ const verificarMaterial = async(req, res, next) => {
         next();
     } catch (error) {
         console.log(error.message);
-        res.status(500).json(error)
+        return res.status(500).json(error);
     }
     
 }

@@ -3,7 +3,8 @@ const  express = require('express');
 const  rotas = express();
 
 const { 
-    ordemDeFabricacao
+    ordemDeFabricacao,
+    listarOdem
 } = require('../controladores/ordem');
 
 const {
@@ -11,8 +12,10 @@ const {
     verificarMaterial
 } = require('../intermediarios/ordem')
 
-rotas.use(verificarBodyOrdem, verificarMaterial)
+rotas.get('/ordem', listarOdem);
 
-rotas.post('/ordem', ordemDeFabricacao)
+rotas.use(verificarBodyOrdem, verificarMaterial);
+
+rotas.post('/ordem', ordemDeFabricacao);
 
 module.exports = rotas;
