@@ -3,9 +3,15 @@ const  express = require('express');
 const  rotas = express();
 
 const { 
-    teste
+    ordemDeFabricacao
 } = require('../controladores/ordem');
 
-rotas.get('/teste', teste)
+const {
+    verificarBodyOrdem
+} = require('../intermediarios/ordem')
+
+rotas.use(verificarBodyOrdem)
+
+rotas.post('/ordem', ordemDeFabricacao)
 
 module.exports = rotas;

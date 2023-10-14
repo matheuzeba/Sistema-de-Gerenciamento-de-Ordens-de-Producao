@@ -1,11 +1,12 @@
 const  pool = require('../bancoDeDados/conexao');
 
-const teste = async(req, res) => {
-   const { rows } = await pool.query('select * from my_table');
+const ordemDeFabricacao = async(req, res) => {
+    const { cliente, produto, quantidade, material, data_de_entrega } = req.body
+    const { rows } = await pool.query('select * from materiais');
 
-   res.json(rows[0]);
+    res.json(rows);
 }
 
 module.exports = {
-    teste
+    ordemDeFabricacao
 }
