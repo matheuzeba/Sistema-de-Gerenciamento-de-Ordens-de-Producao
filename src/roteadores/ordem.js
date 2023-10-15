@@ -4,7 +4,8 @@ const  rotas = express();
 
 const { 
     ordemDeFabricacao,
-    listarOdem
+    listarOdem,
+    listarOdemPorCliente
 } = require('../controladores/ordem');
 
 const {
@@ -12,6 +13,7 @@ const {
     verificarMaterial
 } = require('../intermediarios/ordem')
 
+rotas.get('/ordem', listarOdemPorCliente);
 rotas.get('/ordem', listarOdem);
 
 rotas.use(verificarBodyOrdem, verificarMaterial);
