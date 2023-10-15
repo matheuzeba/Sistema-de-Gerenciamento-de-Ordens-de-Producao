@@ -5,18 +5,29 @@ const  rotas = express();
 const { 
     ordemDeFabricacao,
     listarOdem,
-    listarOdemPorCliente,
+    listarOrdemPorCliente,
     atualizarStatusOrdem
 } = require('../controladores/ordem');
+
+const {
+    criarMaterial
+} = require('../controladores/material')
 
 const {
     verificarBodyOrdem,
     verificarMaterial
 } = require('../intermediarios/ordem')
 
-rotas.get('/ordem', listarOdemPorCliente);
+const {
+    verificarBodyMaterial,
+    verificarSeMaterialExiste
+} = require('../intermediarios/material');
+
 rotas.get('/ordem', listarOdem);
+rotas.get('/ordem/:id', listarOrdemPorCliente);
 rotas.put('/ordem', atualizarStatusOrdem);
+
+rotas.post('/material', verificarBodyMaterial, verificarSeMaterialExiste, criarMaterial)
 
 rotas.use(verificarBodyOrdem, verificarMaterial);
 
