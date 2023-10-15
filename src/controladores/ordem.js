@@ -14,7 +14,7 @@ const ordemDeFabricacao = async(req, res) => {
         return res.status(201).json(rows[0]);
     } catch (error) {
         console.log(error.message);
-        return res.status(500).json(error);
+        return res.status(500).json(error.message);
     }
 }
 
@@ -48,12 +48,40 @@ const listarOdemPorCliente = async(req, res) => {
         return res.status(200).json(rows)
     } catch (error) {
         console.log(error.message);
-        return res.status(500).json(error);
+        return res.status(500).json(error.message);
+    }
+}
+
+const atualizarOrdem = async(req, res) => {
+    const { cliente, id, concluido } = req.body;
+    if(!cliente || !id || !concluido) {
+        return res.status(400).json({mensagem: "o nome do cliente, id e concluido são obrigatorios"});
+    }
+    try {
+        const { rows, rowCount } = await pool.query(
+            `
+                UPDATE ordens
+                SET concluida = $1
+                WHERE cliente = $2 and id = $3 returning *;
+            `, [concluido, cliente, id]
+        );
+
+        console.log(rows)
+
+        if(rowCount === 0){
+            return res.status(200).json({mensagem: "Não existem ordens de fabricação desse cliente"});
+        }
+
+        return res.status(200).json(rows)
+    } catch (error) {
+        console.log(error.message);
+        return res.status(500).json(error.message);
     }
 }
 
 module.exports = {
     ordemDeFabricacao,
     listarOdem,
-    listarOdemPorCliente
+    listarOdemPorCliente,
+    atualizarOrdem
 }
