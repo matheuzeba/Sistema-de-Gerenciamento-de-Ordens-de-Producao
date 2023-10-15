@@ -6,7 +6,7 @@ const {
     ordemDeFabricacao,
     listarOdem,
     listarOdemPorCliente,
-    atualizarOrdem
+    atualizarStatusOrdem
 } = require('../controladores/ordem');
 
 const {
@@ -16,7 +16,7 @@ const {
 
 rotas.get('/ordem', listarOdemPorCliente);
 rotas.get('/ordem', listarOdem);
-rotas.put('/ordem', atualizarOrdem);
+rotas.put('/ordem', atualizarStatusOrdem);
 
 rotas.use(verificarBodyOrdem, verificarMaterial);
 

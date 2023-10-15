@@ -52,7 +52,7 @@ const listarOdemPorCliente = async(req, res) => {
     }
 }
 
-const atualizarOrdem = async(req, res) => {
+const atualizarStatusOrdem = async(req, res) => {
     const { cliente, id, concluido } = req.body;
     if(!cliente || !id || !concluido) {
         return res.status(400).json({mensagem: "o nome do cliente, id e concluido são obrigatorios"});
@@ -83,5 +83,5 @@ module.exports = {
     ordemDeFabricacao,
     listarOdem,
     listarOdemPorCliente,
-    atualizarOrdem
+    atualizarStatusOrdem
 }
