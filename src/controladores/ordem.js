@@ -82,9 +82,31 @@ const atualizarStatusOrdem = async(req, res) => {
     }
 }
 
+const listarPorConclusao = async(req, res) => {
+    const { verificar } = req.query;
+    
+    if(!verificar) {
+        return res.status(400).json({mensagem: "o verificar é obrigatorio"});
+    }
+    
+    try {
+        const { rows, rowCount } = await pool.query('select * from ordens where concluida = $1', [verificar]);
+
+        if(rowCount === 0){
+            return res.status(200).json({mensagem: `Não existem ordens de fabricação ${verificar}`});
+        }
+
+        return res.json(rows);
+    } catch (error) {
+        console.log(error.message);
+        return res.status(500).json(error.message);
+    }
+}
+
 module.exports = {
     ordemDeFabricacao,
     listarOdem,
     listarOrdemPorCliente,
-    atualizarStatusOrdem
+    atualizarStatusOrdem,
+    listarPorConclusao
 }

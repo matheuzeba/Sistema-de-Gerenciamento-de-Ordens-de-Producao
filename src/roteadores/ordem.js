@@ -6,11 +6,15 @@ const {
     ordemDeFabricacao,
     listarOdem,
     listarOrdemPorCliente,
-    atualizarStatusOrdem
+    atualizarStatusOrdem,
+    listarPorConclusao
 } = require('../controladores/ordem');
 
 const {
-    criarMaterial
+    criarMaterial,
+    atualizarMaterial,
+    deletarMaterial,
+    listarMaterial
 } = require('../controladores/material')
 
 const {
@@ -23,11 +27,17 @@ const {
     verificarSeMaterialExiste
 } = require('../intermediarios/material');
 
-rotas.get('/ordem', listarOdem);
+rotas.get('/ordem/finalizado', listarPorConclusao)
 rotas.get('/ordem/:id', listarOrdemPorCliente);
-rotas.put('/ordem', atualizarStatusOrdem);
 
+rotas.get('/ordem', listarOdem);
+rotas.patch('/ordem', atualizarStatusOrdem);
+
+
+rotas.get('/material', listarMaterial)
 rotas.post('/material', verificarBodyMaterial, verificarSeMaterialExiste, criarMaterial)
+rotas.patch('/material', verificarBodyMaterial, atualizarMaterial)
+rotas.delete('/material', deletarMaterial)
 
 rotas.use(verificarBodyOrdem, verificarMaterial);
 
