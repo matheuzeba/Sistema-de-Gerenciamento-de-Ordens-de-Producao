@@ -66,7 +66,7 @@ const deletarMaterial = async(req, res) => {
 
 const listarMaterial = async(req, res) => {
     try {
-        const { rows, rowCount } = await pool.query('select * from materiais');
+        const { rows, rowCount } = await pool.query('select * from materiais order by id');
 
         if(rowCount === 0) {
             return res.status(404).json({mensagem: "Não existem materiais no banco de dados"});
