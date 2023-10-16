@@ -14,7 +14,23 @@
 * Visualizar relatórios de produção que mostrem as ordens em andamento e as concluídas.
 
 ### Requisitos
-*NodeJs v18 (a LTS atual até o momento)*
+* *NodeJs v18 (a LTS atual até o momento)*
+* *Postgresql*
+* *alguma ferramenta para gerenciar banco de dados como o BEEKEEPER*
+* *alguma ferramenta de teste como o insomnia ou postman*
+
+### Tutoriais para instalar as ferramentas que recomendo
+- node
+    - https://www.youtube.com/watch?v=-cLzUD0TQY0&pp=ygUWY29tbyBpbnN0YWxhciBvIG5vZGVqcw%3D%3D
+
+- postgresql
+  - https://www.youtube.com/watch?v=L_2l8XTCPAE
+
+- insomnia
+  - https://www.youtube.com/watch?v=4mZwTUXndUs
+
+- beekeeper
+  - https://www.youtube.com/watch?v=nkG9YYZ9_BE
 
 ### Tecnologias utilizadas
 ![javascript](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)
@@ -22,7 +38,7 @@
 ![expressjs](https://img.shields.io/badge/Express%20js-000000?style=for-the-badge&logo=express&logoColor=white)
 ![npm](https://img.shields.io/badge/npm-CB3837.svg?style=for-the-badge&logo=npm&logoColor=white)
 ![postgresql](https://img.shields.io/badge/PostgreSQL-4169E1.svg?style=for-the-badge&logo=PostgreSQL&logoColor=white)
-![postman](https://img.shields.io/badge/Postman-FF6C37.svg?style=for-the-badge&logo=Postman&logoColor=white)
+![insomnia](https://img.shields.io/badge/Insomnia-4000BF.svg?style=for-the-badge&logo=Insomnia&logoColor=white)
 
 
 ### Funcionalidades
